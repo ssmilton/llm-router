@@ -1,0 +1,71 @@
+server:
+  host: "0.0.0.0"
+  port: 8000
+  api_keys: []
+
+providers:
+  ollama:
+    type: "ollama"
+    base_url: "http://localhost:11434"
+    enabled: true
+    timeout: 300
+    models:
+      - name: "llama3:70b"
+        provider_model_id: "llama3:70b"
+        aliases: ["llama-3-70b", "llama3"]
+      - name: "mistral:latest"
+        provider_model_id: "mistral:latest"
+        aliases: ["mistral"]
+
+  openai:
+    type: "openai"
+    base_url: "https://api.openai.com/v1"
+    api_key: "${OPENAI_API_KEY}"
+    enabled: true
+    timeout: 60
+    models:
+      - name: "gpt-4"
+        provider_model_id: "gpt-4"
+        aliases: ["gpt4"]
+      - name: "gpt-3.5-turbo"
+        provider_model_id: "gpt-3.5-turbo"
+
+  anthropic:
+    type: "anthropic"
+    base_url: "https://api.anthropic.com/v1"
+    api_key: "${ANTHROPIC_API_KEY}"
+    enabled: true
+    timeout: 60
+    models:
+      - name: "claude-3-opus"
+        provider_model_id: "claude-3-opus-20240229"
+        aliases: ["claude-opus"]
+
+  llama_cpp:
+    type: "llama_cpp"
+    base_url: "http://localhost:8001"
+    enabled: false
+    timeout: 120
+    models:
+      - name: "llama-cpp"
+        provider_model_id: "llama-cpp"
+
+  openrouter:
+    type: "openrouter"
+    base_url: "https://openrouter.ai/api/v1"
+    api_key: "${OPENROUTER_API_KEY}"
+    enabled: false
+    timeout: 60
+    models:
+      - name: "openrouter-example"
+        provider_model_id: "openrouter/example"
+
+  qwen:
+    type: "qwen"
+    base_url: "https://dashscope.aliyuncs.com"
+    api_key: "${QWEN_API_KEY}"
+    enabled: false
+    timeout: 60
+    models:
+      - name: "qwen-turbo"
+        provider_model_id: "qwen-turbo"
