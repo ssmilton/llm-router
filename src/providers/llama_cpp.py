@@ -6,6 +6,7 @@ from .base import BaseProvider
 class LlamaCppProvider(BaseProvider):
     async def chat_completion(self, provider_model_id: str, messages: list, params: dict):
         payload = {
+            "model": provider_model_id,
             "messages": messages,
             **params,
         }
@@ -22,6 +23,7 @@ class LlamaCppProvider(BaseProvider):
         self, provider_model_id: str, messages: list, params: dict
     ):
         payload = {
+            "model": provider_model_id,
             "messages": messages,
             "stream": True,
             **params,
