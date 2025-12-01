@@ -7,6 +7,12 @@ OpenAI-compatible router built with FastAPI to consolidate multiple LLM provider
 - Configuration-driven provider/model mapping via YAML
 - Streaming and non-streaming chat completions
 - Health and model listing endpoints
+
+### Model discovery endpoints
+
+- `GET /v1/models` — Lists all routed model names using OpenAI's response shape.
+- `GET /v1/models/all` — Lists every configured model for enabled providers with
+  provider metadata and aliases included.
 - Dockerfile and Compose setup for local deployment
 
 ## Getting Started
