@@ -6,13 +6,13 @@ server:
 providers:
   ollama:
     type: "ollama"
-    base_url: "http://localhost:11434"
+    base_url: "${OLLAMA_URL_BASE}"
     enabled: true
     timeout: 300
     models:
-      - name: "llama3:70b"
-        provider_model_id: "llama3:70b"
-        aliases: ["llama-3-70b", "llama3"]
+      - name: "local-qwen2.5-coder:1.5b"
+        provider_model_id: "qwen2.5-coder:1.5b"
+        aliases: ["qwen2.5-coder", "autocomplete"]
       - name: "mistral:latest"
         provider_model_id: "mistral:latest"
         aliases: ["mistral"]
@@ -21,7 +21,7 @@ providers:
     type: "openai"
     base_url: "https://api.openai.com/v1"
     api_key: "${OPENAI_API_KEY}"
-    enabled: true
+    enabled: false
     timeout: 60
     models:
       - name: "gpt-4"
@@ -37,28 +37,55 @@ providers:
     enabled: true
     timeout: 60
     models:
-      - name: "claude-3-opus"
-        provider_model_id: "claude-3-opus-20240229"
-        aliases: ["claude-opus"]
+      - name: "claude-sonnet-4-5-20250929"
+        provider_model_id: "claude-sonnet-4-5-20250929"
+        aliases: ["claude-sonnet-4-5"]
+      - name: "claude-sonnet-4-20250514"
+        provider_model_id: "claude-sonnet-4-20250514"
+        aliases: ["claude-sonnet-4"]
+      - name: "claude-haiku-4-5-20251001"
+        provider_model_id: "claude-haiku-4-5-20251001"
+        aliases: ["claude-haiku-4-5"]
+      - name: "claude-opus-4-5-20251101"
+        provider_model_id: "claude-opus-4-5-20251101"
+        aliases: ["claude-opus-4-5"]
 
   llama_cpp:
     type: "llama_cpp"
-    base_url: "http://localhost:8001"
-    enabled: false
+    base_url: "${LLAMA_SWAP_BASE_URL}"
+    enabled: true
     timeout: 120
     models:
-      - name: "llama-cpp"
-        provider_model_id: "llama-cpp"
+      - name: "local-qwen3-coder-30B-A3B-Instruct-Q8_0"
+        provider_model_id: "unsloth/Qwen3-Coder-30B-A3B-Instruct-GGUF/Qwen3-Coder-30B-A3B-Instruct-Q8_0.gguf"
 
   openrouter:
     type: "openrouter"
     base_url: "https://openrouter.ai/api/v1"
     api_key: "${OPENROUTER_API_KEY}"
-    enabled: false
+    enabled: true
     timeout: 60
     models:
-      - name: "openrouter-example"
-        provider_model_id: "openrouter/example"
+      - name: "openrouter-qwen3-coder-480b-A35B"
+        provider_model_id: "qwen/qwen3-coder"
+      - name: "openrouter-qwen3-max"
+        provider_model_id: "qwen/qwen3-max"
+      - name: "openrouter-claude-sonnet-4-5"
+        provider_model_id: "anthropic/claude-sonnet-4.5"
+      - name: "openrouter-claude-haiku-4-5"
+        provider_model_id: "anthropic/claude-haiku-4.5"
+      - name: "openrouter-gpt-5-1"
+        provider_model_id: "openai/gpt-5.1"
+      - name: "openrouter-gpt-5-mini"
+        provider_model_id: "openai/gpt-5-mini"
+      - name: "openrouter-gpt-oss-120b"
+        provider_model_id: "openai/gpt-oss-120b"
+      - name: "openrouter-gpt-5-pro"
+        provider_model_id: "openai/gpt-5-pro"
+      - name: "openrouter-gpt-5-image"
+        provider_model_id: "openai/gpt-5-image"
+      - name: "openrouter-gemini-2-5-flash"
+        provider_model_id: "google/gemini-2.5-flash"
 
   qwen:
     type: "qwen"
