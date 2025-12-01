@@ -11,15 +11,17 @@ class AnthropicProvider(BaseProvider):
         anthropic_messages = []
 
         for msg in messages:
-            if msg.get("role") == "system":
+            role = msg.get("role")
+            if role == "system":
                 system = msg.get("content", "")
-            else:
+            elif role in ("user", "assistant"):
                 anthropic_messages.append(
                     {
-                        "role": msg.get("role"),
+                        "role": role,
                         "content": msg.get("content"),
                     }
                 )
+            # Skip messages with unsupported roles like "tool"
 
         return system, anthropic_messages
 
@@ -77,6 +79,8 @@ class AnthropicProvider(BaseProvider):
             headers=headers,
             timeout=self.config.timeout,
         )
+        if response.status_code != 200:
+            raise Exception(f"Anthropic API error: {response.status_code} - {response.text}")
         response.raise_for_status()
 
         return self._to_openai_format(response.json())
@@ -108,6 +112,9 @@ class AnthropicProvider(BaseProvider):
             headers=headers,
             timeout=self.config.timeout,
         ) as response:
+            if response.status_code != 200:
+                error_body = await response.aread()
+                raise Exception(f"Anthropic API error: {response.status_code} - {error_body.decode()}")
             response.raise_for_status()
 
             async for line in response.aiter_lines():
