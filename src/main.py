@@ -104,6 +104,12 @@ async def list_models():
     return {"object": "list", "data": models}
 
 
+@app.get("/v1/models/all")
+async def list_all_configured_models():
+    models = router.list_configured_models()
+    return {"object": "list", "data": models}
+
+
 @app.get("/health")
 async def health_check():
     return {

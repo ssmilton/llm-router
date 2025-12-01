@@ -121,5 +121,35 @@ class ModelRouter:
 
         return models
 
+    def list_configured_models(self) -> list:
+        """Return all models configured for every enabled provider.
+
+        Unlike :meth:`list_models`, this returns every configured model without
+        deduplication and includes provider-specific metadata to aid
+        introspection.
+        """
+
+        models = []
+
+        for provider_name, provider_config in self.config.providers.items():
+            if not provider_config.enabled:
+                continue
+
+            for model_config in provider_config.models:
+                models.append(
+                    {
+                        "id": model_config.name,
+                        "object": "model",
+                        "created": 0,
+                        "owned_by": provider_name,
+                        "provider": provider_name,
+                        "provider_type": provider_config.type,
+                        "provider_model_id": model_config.provider_model_id,
+                        "aliases": model_config.aliases,
+                    }
+                )
+
+        return models
+
     async def close(self) -> None:
         await self._http_client.aclose()
