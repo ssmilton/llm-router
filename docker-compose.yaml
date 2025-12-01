@@ -10,6 +10,8 @@ services:
       - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
       - OPENROUTER_API_KEY=${OPENROUTER_API_KEY}
       - QWEN_API_KEY=${QWEN_API_KEY}
+      - OLLAMA_URL_BASE=${OLLAMA_URL_BASE}
+      - LLAMA_SWAP_BASE_URL=${LLAMA_SWAP_BASE_URL]}
     volumes:
       - ./config:/app/config
     restart: unless-stopped
